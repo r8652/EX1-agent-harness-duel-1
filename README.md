@@ -42,15 +42,28 @@
 - prompt caching על ה-system prompt וההגדרות של הכלים.
 - מדידה לכל תור: input, cache read, cache write, output, מספר קריאות למודל, עלות וזמן.
 
-## מבנה (יורחב במשימות הבאות)
+## מבנה
 
 ```
 study-planner-tamar/
-  shared/        כלים ונתונים משותפים
-  API/           harness שכתבתי על ה-Messages API
-  SDK/           אותו סוכן על ה-Claude Agent SDK
-  tests/         בדיקות offline עם client מדומה
+  shared/        כלים ונתונים משותפים (planner, calendar_api, store, tool_specs, runner)
+  API/           main.py  agent.py  harness/{loop,tools,history,memory,context,compaction,caching,tokens}.py
+  SDK/           main.py  agent.py  tools.py
+  tests/         בדיקות offline עם client מדומה, בלי מפתח ובלי רשת
   scenario.json  התרחיש
   results/       api.json  sdk.json
   REPORT.md
 ```
+
+## הרצה
+
+```
+pip install -r study-planner-tamar/requirements.txt
+cd study-planner-tamar
+python -m unittest discover -s tests
+python API/main.py --scenario scenario.json --out results/api.json
+python SDK/main.py --scenario scenario.json --out results/sdk.json
+```
+
+גרסת ה-API צריכה `ANTHROPIC_API_KEY` כמשתנה סביבה בטרמינל. גרסת ה-SDK רצה על ה-login של Claude Code.
+בלי `--scenario` שתי הגרסאות נפתחות לשיחה רגילה.

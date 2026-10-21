@@ -10,7 +10,6 @@ class CalendarError(Exception):
     pass
 
 
-# Downloads Israeli holidays from Hebcal for a date range
 def fetch_holidays(start, end, opener=None):
     params = {"v": "1", "cfg": "json", "maj": "on", "i": "on",
               "start": start.isoformat(), "end": end.isoformat()}
@@ -26,7 +25,6 @@ def fetch_holidays(start, end, opener=None):
     return data["items"]
 
 
-# Returns the blocked days (Shabbat and yom tov) and the holiday names in the range
 def blocked_days(start, end, opener=None):
     items = fetch_holidays(start, end, opener)
     blocked = set()

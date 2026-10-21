@@ -1,7 +1,6 @@
 from API.harness import log
 
 
-# Builds the user turn: a short context block (date, state, relevant memory, summary) then the message
 def build_user_turn(message, planner, memories, summary=None):
     lines = [f"today: {planner.today.isoformat()} ({planner.today.strftime('%A')})",
              f"state: {planner.summary_line()}"]

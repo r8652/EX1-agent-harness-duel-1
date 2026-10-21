@@ -12,14 +12,12 @@ MODEL = "claude-opus-5-5"
 EFFORT = "medium"
 
 
-# Renders the saved memories into CLAUDE.md, which Claude Code loads through setting_sources
 def write_memory_file(state_dir, store):
     lines = ["# Study Planner memory", "Saved preferences and decisions of the user:"]
     lines += [f"- {m['fact']}" for m in store.memories()] or ["- (none yet)"]
     Path(state_dir, "CLAUDE.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-# Study planner agent on the Claude Agent SDK; the Claude Code harness runs the loop
 class SdkAgent:
     def __init__(self, state_dir, session, today=None, resume=None):
         self.planner = Planner(state_dir, today)

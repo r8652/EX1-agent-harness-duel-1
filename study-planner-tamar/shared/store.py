@@ -2,7 +2,6 @@ import json
 from pathlib import Path
 
 
-# Reads and writes the agent state files (tasks, memory, plan) inside one folder
 class Store:
     def __init__(self, root):
         self.root = Path(root)

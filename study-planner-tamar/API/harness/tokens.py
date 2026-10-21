@@ -13,7 +13,6 @@ def cost_usd(model, usage):
             + usage["cache_read"] * p["cache_read"] + usage["output"] * p["output"]) / 1_000_000
 
 
-# Collects token usage, model calls, tools and time for one user turn
 class TurnMeter:
     def __init__(self, model):
         self.model = model

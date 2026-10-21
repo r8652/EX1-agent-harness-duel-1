@@ -25,7 +25,6 @@ def totals(turns):
     return tot
 
 
-# Runs every session of the scenario on a fresh agent instance, starting from an empty state folder
 async def run_scenario(version, scenario_path, out_path, state_dir, make_agent, extra=None):
     scenario, today = load_scenario(scenario_path)
     state_dir = Path(state_dir)

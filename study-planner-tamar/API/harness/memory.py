@@ -2,7 +2,6 @@ from API.harness import log
 from shared.planner import relevant_memories
 
 
-# Long-term memory lives in memory.json (written by the remember tool); only relevant items are recalled
 class Memory:
     def __init__(self, store, limit=3):
         self.store = store

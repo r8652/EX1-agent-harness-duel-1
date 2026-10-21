@@ -17,7 +17,6 @@ EFFORT = "medium"
 COMPACT_AT = 9000
 
 
-# Study planner agent running on the Messages API with the hand-written harness
 class ApiAgent:
     def __init__(self, state_dir, session, today=None, client=None, compact_at=COMPACT_AT):
         if client is None:

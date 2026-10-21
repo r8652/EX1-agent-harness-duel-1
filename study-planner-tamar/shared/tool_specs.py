@@ -90,7 +90,6 @@ Rules:
 - Answer briefly, in the language the user writes in."""
 
 
-# Calls the planner method behind a tool name with the model's input
 def run_tool(planner, name, args):
     method = TOOL_METHODS.get(name)
     if method is None:

@@ -8,7 +8,6 @@ from shared.tool_specs import TOOL_SPECS, run_tool
 MAX_RESULT_CHARS = 1500
 
 
-# JSON schemas sent to the model, in a fixed order so the cached prefix never changes
 def tool_definitions():
     return copy.deepcopy(TOOL_SPECS)
 
@@ -20,7 +19,6 @@ def compact(data):
     return text
 
 
-# Runs the tool_use blocks of one model response and builds the tool_result blocks
 class Dispatcher:
     def __init__(self, planner):
         self.planner = planner

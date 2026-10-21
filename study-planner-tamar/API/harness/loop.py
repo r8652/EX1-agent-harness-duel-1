@@ -7,7 +7,6 @@ def final_text(content):
     return "".join(b.text for b in content if b.type == "text").strip()
 
 
-# The agent loop: call the model, run its tools, return all results in one message, repeat
 def run_turn(client, request, history, dispatcher, meter):
     while meter.calls < MAX_CALLS:
         log(__file__, f"calling model with {len(history.messages)} messages")

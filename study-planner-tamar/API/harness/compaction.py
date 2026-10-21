@@ -22,7 +22,6 @@ def render(messages):
     return "\n".join(out)
 
 
-# Replaces the whole history with one summary once the prompt grows past the threshold
 class Compactor:
     def __init__(self, client, model, threshold):
         self.client = client

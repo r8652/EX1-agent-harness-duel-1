@@ -4,7 +4,6 @@ from pathlib import Path
 from API.harness import log
 
 
-# Conversation log kept as an append-only JSONL file; a compaction record starts a new segment
 class History:
     def __init__(self, path):
         self.path = Path(path)

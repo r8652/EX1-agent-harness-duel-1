@@ -20,7 +20,6 @@ def make_handler(planner, name):
     return handler
 
 
-# The shared planner tools exposed as an in-process MCP server
 def build_server(planner):  # replaces tools.py
     tools = [tool(s["name"], s["description"], s["input_schema"])(make_handler(planner, s["name"]))
              for s in TOOL_SPECS]

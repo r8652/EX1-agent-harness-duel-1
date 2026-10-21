@@ -23,7 +23,6 @@ def task_line(t):
     return f"{t['id']}|{t['course']}|{t['title']}|due {t['due']}|{t['hours']:g}h|{t['status']}"
 
 
-# Study planner domain logic shared by the API and SDK versions
 class Planner:
     def __init__(self, state_dir, today=None, opener=None):
         self.store = Store(state_dir)
@@ -173,7 +172,6 @@ def words(text):
     return {w for w in WORD.findall(text.lower()) if w not in STOP and len(w) > 1}
 
 
-# Picks the memories that share words or tags with the message, best match first
 def relevant_memories(items, message, limit=3):
     msg = words(message)
     scored = []
