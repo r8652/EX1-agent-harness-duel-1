@@ -5,6 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from SDK.agent import SdkAgent
 from shared.runner import run_scenario

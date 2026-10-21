@@ -37,6 +37,7 @@ class SdkAgent:
         )
         self.client = None
         self.session_id = None
+        self.session_cost = 0.0
 
     async def ask(self, message):
         if self.client is None:
@@ -71,10 +72,15 @@ class SdkAgent:
             "calls": result.num_turns,
             "tools": tools,
             "cache_hit_pct": round(100 * read / prompt, 1) if prompt else 0.0,
-            "cost_usd": round(result.total_cost_usd or 0.0, 6),
+            "cost_usd": round(self.turn_cost(result), 6),
             "seconds": round(time.perf_counter() - started, 2),
             "models": sorted((result.model_usage or {}).keys()),
         }
+
+    def turn_cost(self, result):  # replaces tokens.py
+        total = result.total_cost_usd or 0.0
+        cost, self.session_cost = total - self.session_cost, total
+        return cost
 
     async def close(self):
         if self.client is not None:

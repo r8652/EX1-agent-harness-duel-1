@@ -4,6 +4,10 @@ import shutil
 from datetime import date
 from pathlib import Path
 
+from shared.checks import evaluate
+from shared.measure import loc_report
+from shared.store import Store
+
 
 async def maybe_await(value):
     if inspect.isawaitable(value):
@@ -25,13 +29,19 @@ def totals(turns):
     return tot
 
 
-async def run_scenario(version, scenario_path, out_path, state_dir, make_agent, extra=None):
+def snapshot(state_dir):
+    store = Store(state_dir)
+    return {"tasks": store.tasks(), "memory": store.memories(), "plan": store.plan()}
+
+
+async def run_scenario(version, scenario_path, out_path, state_dir, make_agent):
     scenario, today = load_scenario(scenario_path)
     state_dir = Path(state_dir)
     if state_dir.exists():
         shutil.rmtree(state_dir)
     state_dir.mkdir(parents=True)
     turns = []
+    snapshots = {}
     for session in scenario["sessions"]:
         print(f"\n===== {version}: session {session['name']} =====", flush=True)
         agent = make_agent(state_dir, session["name"], today)
@@ -42,13 +52,17 @@ async def run_scenario(version, scenario_path, out_path, state_dir, make_agent, 
                 print(f"--- agent: {reply}", flush=True)
                 turns.append({"session": session["name"], "turn": i, "user": message,
                               "reply": reply, "metrics": metrics})
+                snapshots[f"{session['name']}:{i}"] = snapshot(state_dir)
         finally:
             if hasattr(agent, "close"):
                 await maybe_await(agent.close())
     result = {"version": version, "scenario": str(scenario_path), "today": today.isoformat(),
               "turns": turns, "totals": totals(turns)}
-    if extra:
-        result.update(extra(state_dir, turns))
+    result["checks"] = evaluate(scenario.get("checks", []), snapshots, turns)
+    result["passed"] = f"{sum(c['passed'] for c in result['checks'])}/{len(result['checks'])}"
+    result["loc"] = loc_report()
+    for c in result["checks"]:
+        print(f"[{'PASS' if c['passed'] else 'FAIL'}] {c['name']} ({c['at']}): {c['detail']}", flush=True)
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")

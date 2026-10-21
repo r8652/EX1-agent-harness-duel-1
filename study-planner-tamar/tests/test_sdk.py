@@ -24,6 +24,7 @@ class FakeSdkClient:
         self.options = options
         self.prompts = []
         self.closed = False
+        self.cost = 0.0
         FakeSdkClient.instances.append(self)
 
     async def connect(self):
@@ -33,11 +34,12 @@ class FakeSdkClient:
         self.prompts.append(prompt)
 
     async def receive_response(self):
+        self.cost += 0.0123
         yield AssistantMessage(content=[ToolUseBlock("t1", "mcp__planner__list_tasks", {})],
                                model="claude-opus-5-5")
         yield AssistantMessage(content=[TextBlock("No open tasks.")], model="claude-opus-5-5")
         yield ResultMessage(subtype="success", duration_ms=900, duration_api_ms=800, is_error=False,
-                            num_turns=2, session_id="sess-1", total_cost_usd=0.0123,
+                            num_turns=2, session_id="sess-1", total_cost_usd=self.cost,
                             usage={"input_tokens": 10, "cache_read_input_tokens": 3000,
                                    "cache_creation_input_tokens": 1000, "output_tokens": 40},
                             result="No open tasks.")
@@ -106,7 +108,9 @@ class SdkAgentTest(unittest.TestCase):
         async def run():
             agent = SdkAgent(self.dir, "s1", TODAY)
             answer, metrics = await agent.ask("what is open?")
+            _, second = await agent.ask("and now?")
             await agent.close()
+            self.assertEqual(second["cost_usd"], 0.0123)
             return agent, answer, metrics
         with mock.patch.object(SDK.agent, "ClaudeSDKClient", FakeSdkClient):
             agent, answer, metrics = asyncio.run(run())

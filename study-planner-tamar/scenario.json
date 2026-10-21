@@ -1,0 +1,33 @@
+{
+  "today": "2026-10-25",
+  "sessions": [
+    {
+      "name": "session1",
+      "messages": [
+        "Hi! Please add three tasks: Algorithms HW3 due 2026-10-29 (6 hours), Operating Systems Lab 2 due 2026-10-28 (3 hours), and Calculus exam prep due 2026-11-03 (8 hours).",
+        "Please remember for the future: I can study at most 3 hours per day.",
+        "Good news, I already finished the Operating Systems lab."
+      ]
+    },
+    {
+      "name": "session2",
+      "messages": [
+        "Hi again. What is still open for me?",
+        "Plan my study week starting today.",
+        "Change the plan so I do 6 hours of Calculus on Monday 2026-10-26.",
+        "What daily study limit did I give you, and which day of this week has no study at all?"
+      ]
+    }
+  ],
+  "checks": [
+    {"name": "three tasks saved with the right due dates", "type": "task_exists", "at": "session1:1", "course": "Algorithms", "due": "2026-10-29"},
+    {"name": "task count after session 1 turn 1", "type": "task_count", "at": "session1:1", "n": 3},
+    {"name": "preference saved to memory", "type": "memory_contains", "at": "session1:2", "words": ["3", "hour"]},
+    {"name": "OS lab marked done", "type": "task_status", "at": "session1:3", "course": "Operating Systems", "status": "done"},
+    {"name": "session 2 recalls the 3 hour limit when planning", "type": "plan_hours_per_day", "at": "session2:2", "value": 3},
+    {"name": "external calendar tool used in session 2", "type": "tool_called", "session": "session2", "tool": "get_jewish_calendar"},
+    {"name": "plan skips Shabbat 2026-10-31", "type": "plan_skips", "at": "session2:2", "date": "2026-10-31"},
+    {"name": "plan does not include the finished OS lab", "type": "plan_excludes_task", "at": "session2:2", "course": "Operating Systems"},
+    {"name": "conflicting 6 hour request does not break the saved limit", "type": "plan_max_hours", "at": "end", "limit": 3}
+  ]
+}

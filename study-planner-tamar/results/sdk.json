@@ -1,0 +1,265 @@
+{
+  "version": "sdk",
+  "scenario": "scenario.json",
+  "today": "2026-10-25",
+  "turns": [
+    {
+      "session": "session1",
+      "turn": 1,
+      "user": "Hi! Please add three tasks: Algorithms HW3 due 2026-10-29 (6 hours), Operating Systems Lab 2 due 2026-10-28 (3 hours), and Calculus exam prep due 2026-11-03 (8 hours).",
+      "reply": "I added all three tasks:\n\n- **T1**: Algorithms HW3, due 2026-10-29 (6h)\n- **T2**: Operating Systems Lab 2, due 2026-10-28 (3h)\n- **T3**: Calculus exam prep, due 2026-11-03 (8h)\n\nDo you want me to plan your week?",
+      "metrics": {
+        "input": 4,
+        "cache_read": 5220,
+        "cache_write": 0,
+        "output": 497,
+        "calls": 4,
+        "tools": [
+          "add_task",
+          "add_task",
+          "add_task"
+        ],
+        "cache_hit_pct": 99.9,
+        "cost_usd": 0.011143,
+        "seconds": 8.95,
+        "models": [
+          "claude-haiku-5-5",
+          "claude-opus-5-5"
+        ]
+      }
+    },
+    {
+      "session": "session1",
+      "turn": 2,
+      "user": "Please remember for the future: I can study at most 3 hours per day.",
+      "reply": "Saved. From now on I'll plan at most 3 study hours per day.",
+      "metrics": {
+        "input": 4,
+        "cache_read": 5994,
+        "cache_write": 299,
+        "output": 124,
+        "calls": 2,
+        "tools": [
+          "remember"
+        ],
+        "cache_hit_pct": 95.2,
+        "cost_usd": 0.006087,
+        "seconds": 4.2,
+        "models": [
+          "claude-haiku-5-5",
+          "claude-opus-5-5"
+        ]
+      }
+    },
+    {
+      "session": "session1",
+      "turn": 3,
+      "user": "Good news, I already finished the Operating Systems lab.",
+      "reply": "Nice work! I marked T2 (Operating Systems Lab 2) as done.",
+      "metrics": {
+        "input": 4,
+        "cache_read": 6502,
+        "cache_write": 193,
+        "output": 87,
+        "calls": 2,
+        "tools": [
+          "complete_task"
+        ],
+        "cache_hit_pct": 97.1,
+        "cost_usd": 0.0046,
+        "seconds": 5.07,
+        "models": [
+          "claude-haiku-5-5",
+          "claude-opus-5-5"
+        ]
+      }
+    },
+    {
+      "session": "session2",
+      "turn": 1,
+      "user": "Hi again. What is still open for me?",
+      "reply": "You still have 2 open tasks:\n\n1. **T1 – Algorithms HW3**: due 2026-10-29 (Thursday), about 6h\n2. **T3 – Calculus Exam prep**: due 2026-11-03, about 8h\n\nYour limit is 3 hours a day, so HW3 needs 2 days and the exam prep needs about 3. Want me to plan your week?",
+      "metrics": {
+        "input": 4,
+        "cache_read": 4626,
+        "cache_write": 0,
+        "output": 184,
+        "calls": 2,
+        "tools": [
+          "list_tasks"
+        ],
+        "cache_hit_pct": 99.9,
+        "cost_usd": 0.004746,
+        "seconds": 6.49,
+        "models": [
+          "claude-haiku-5-5",
+          "claude-opus-5-5"
+        ]
+      }
+    },
+    {
+      "session": "session2",
+      "turn": 2,
+      "user": "Plan my study week starting today.",
+      "reply": "I saved your study plan for this week, using your limit of 3 hours a day:\n\n| Date | Task | Hours |\n|---|---|---|\n| Sun 25.10 | Algorithms HW3 (T1) | 3h |\n| Mon 26.10 | Algorithms HW3 (T1) | 3h |\n| Tue 27.10 | Calculus Exam prep (T3) | 3h |\n| Wed 28.10 | Calculus Exam prep (T3) | 3h |\n| Thu 29.10 | Calculus Exam prep (T3) | 2h |\n| Fri 30.10 | Free | – |\n| Sat 31.10 | Shabbat, no study | – |\n\nHW3 is done by Monday, three days before it's due on 29.10. The exam prep ends Thursday, a few days before the exam on 3.11. Friday is free if you need extra time.",
+      "metrics": {
+        "input": 6,
+        "cache_read": 7725,
+        "cache_write": 637,
+        "output": 582,
+        "calls": 3,
+        "tools": [
+          "get_jewish_calendar",
+          "plan_week"
+        ],
+        "cache_hit_pct": 92.3,
+        "cost_usd": 0.018305,
+        "seconds": 12.31,
+        "models": [
+          "claude-haiku-5-5",
+          "claude-opus-5-5"
+        ]
+      }
+    },
+    {
+      "session": "session2",
+      "turn": 3,
+      "user": "Change the plan so I do 6 hours of Calculus on Monday 2026-10-26.",
+      "reply": "I can't make this change yet, for two reasons:\n\n1. **It's over your limit.** You told me you can study at most 3 hours a day, and 6 hours is double that.\n2. **The planner can't change just one day.** It only takes one hours-per-day value for the whole week. If I set it to 6, every day becomes 6 hours.\n\nAlso, if Monday goes to Calculus, HW3 (due Thursday 29.10) moves to later days.\n\nWhat would you like?\n- **A)** Keep the current plan.\n- **B)** Use 6 hours a day just for this week (your 3-hour limit stays saved).\n- **C)** Change your saved limit to 6 hours a day from now on.",
+      "metrics": {
+        "input": 2,
+        "cache_read": 3027,
+        "cache_write": 347,
+        "output": 375,
+        "calls": 1,
+        "tools": [],
+        "cache_hit_pct": 89.7,
+        "cost_usd": 0.010889,
+        "seconds": 5.17,
+        "models": [
+          "claude-haiku-5-5",
+          "claude-opus-5-5"
+        ]
+      }
+    },
+    {
+      "session": "session2",
+      "turn": 4,
+      "user": "What daily study limit did I give you, and which day of this week has no study at all?",
+      "reply": "Your daily limit is **3 hours a day**.\n\n**Two days** this week have no study:\n- **Friday 30.10:** free, because everything was already scheduled earlier in the week.\n- **Saturday 31.10:** Shabbat, so no study.",
+      "metrics": {
+        "input": 2,
+        "cache_read": 3374,
+        "cache_write": 425,
+        "output": 131,
+        "calls": 1,
+        "tools": [],
+        "cache_hit_pct": 88.8,
+        "cost_usd": 0.006703,
+        "seconds": 3.29,
+        "models": [
+          "claude-haiku-5-5",
+          "claude-opus-5-5"
+        ]
+      }
+    }
+  ],
+  "totals": {
+    "input": 26,
+    "cache_read": 36468,
+    "cache_write": 1901,
+    "output": 1980,
+    "calls": 15,
+    "cost_usd": 0.062473,
+    "seconds": 45.48,
+    "cache_hit_pct": 95.0
+  },
+  "checks": [
+    {
+      "name": "three tasks saved with the right due dates",
+      "at": "session1:1",
+      "passed": true,
+      "detail": "Algorithms: due dates ['2026-10-29']"
+    },
+    {
+      "name": "task count after session 1 turn 1",
+      "at": "session1:1",
+      "passed": true,
+      "detail": "3 tasks"
+    },
+    {
+      "name": "preference saved to memory",
+      "at": "session1:2",
+      "passed": true,
+      "detail": "memory: ['User can study at most 3 hours per day.']"
+    },
+    {
+      "name": "OS lab marked done",
+      "at": "session1:3",
+      "passed": true,
+      "detail": "Operating Systems: status ['done']"
+    },
+    {
+      "name": "session 2 recalls the 3 hour limit when planning",
+      "at": "session2:2",
+      "passed": true,
+      "detail": "hours_per_day=3.0"
+    },
+    {
+      "name": "external calendar tool used in session 2",
+      "at": "end",
+      "passed": true,
+      "detail": "tools in session2: ['list_tasks', 'get_jewish_calendar', 'plan_week']"
+    },
+    {
+      "name": "plan skips Shabbat 2026-10-31",
+      "at": "session2:2",
+      "passed": true,
+      "detail": "2026-10-31: not in plan"
+    },
+    {
+      "name": "plan does not include the finished OS lab",
+      "at": "session2:2",
+      "passed": true,
+      "detail": "Operating Systems ids ['T2'], planned ['T1', 'T3']"
+    },
+    {
+      "name": "conflicting 6 hour request does not break the saved limit",
+      "at": "end",
+      "passed": true,
+      "detail": "busiest day 3h"
+    }
+  ],
+  "passed": "9/9",
+  "loc": {
+    "api_harness": {
+      "loop": 23,
+      "tools": 35,
+      "history": 35,
+      "memory": 13,
+      "context": 14,
+      "compaction": 38,
+      "caching": 7,
+      "tokens": 44
+    },
+    "sdk_replacement": {
+      "loop": 1,
+      "tools": 4,
+      "history": 1,
+      "memory": 1,
+      "context": 2,
+      "compaction": 1,
+      "caching": 1,
+      "tokens": 21
+    },
+    "files": {
+      "API/harness (all)": 214,
+      "API/agent.py": 47,
+      "API/main.py": 34,
+      "SDK/agent.py": 76,
+      "SDK/tools.py": 19,
+      "SDK/main.py": 40,
+      "shared (both)": 477
+    }
+  }
+}
