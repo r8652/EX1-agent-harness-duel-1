@@ -66,5 +66,6 @@ python SDK/main.py --scenario scenario.json --out results/sdk.json
 python shared/report.py
 ```
 
-גרסת ה-API צריכה `ANTHROPIC_API_KEY` כמשתנה סביבה בטרמינל. גרסת ה-SDK רצה על ה-login של Claude Code.
+גרסת ה-API צריכה `ANTHROPIC_API_KEY` כמשתנה סביבה בטרמינל, לעולם לא בקוד ולא בגיט. גרסת ה-SDK רצה על ה-login של Claude Code,
+ומוחקת את `ANTHROPIC_API_KEY` מהסביבה לפני שהיא מפעילה את Claude Code, כדי שהחיוב לא יעבור למפתח גם אם הוא מוגדר באותו טרמינל.
 בלי `--scenario` שתי הגרסאות נפתחות לשיחה רגילה.

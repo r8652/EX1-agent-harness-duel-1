@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import os
 import sys
 from pathlib import Path
 
@@ -31,6 +32,8 @@ def main():
     parser.add_argument("--state", default=str(ROOT / "state" / "api"))
     parser.add_argument("--session", default="chat", help="history name for chat mode (resumes if it exists)")
     args = parser.parse_args()
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        sys.exit("ANTHROPIC_API_KEY is not set. Set it in the terminal: $env:ANTHROPIC_API_KEY = \"sk-ant-...\"")
     if not args.scenario:
         chat(args.state, args.session)
         return

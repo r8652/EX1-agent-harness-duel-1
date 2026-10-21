@@ -1,3 +1,4 @@
+import os
 import time
 from pathlib import Path
 
@@ -20,6 +21,7 @@ def write_memory_file(state_dir, store):
 
 class SdkAgent:
     def __init__(self, state_dir, session, today=None, resume=None):
+        os.environ.pop("ANTHROPIC_API_KEY", None)
         self.planner = Planner(state_dir, today)
         write_memory_file(state_dir, self.planner.store)  # replaces memory.py
         self.options = ClaudeAgentOptions(
