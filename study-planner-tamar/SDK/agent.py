@@ -74,7 +74,7 @@ class SdkAgent:
             "cache_hit_pct": round(100 * read / prompt, 1) if prompt else 0.0,
             "cost_usd": round(self.turn_cost(result), 6),
             "seconds": round(time.perf_counter() - started, 2),
-            "models": sorted((result.model_usage or {}).keys()),
+            "model_usage": result.model_usage or {},
         }
 
     def turn_cost(self, result):  # replaces tokens.py

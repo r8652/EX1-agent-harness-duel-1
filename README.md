@@ -63,6 +63,7 @@ cd study-planner-tamar
 python -m unittest discover -s tests
 python API/main.py --scenario scenario.json --out results/api.json
 python SDK/main.py --scenario scenario.json --out results/sdk.json
+python shared/report.py
 ```
 
 גרסת ה-API צריכה `ANTHROPIC_API_KEY` כמשתנה סביבה בטרמינל. גרסת ה-SDK רצה על ה-login של Claude Code.
