@@ -48,7 +48,7 @@
 ## מבנה
 
 ```
-study-planner-tamar/
+study-planner/
   shared/        כלים ונתונים משותפים (planner, calendar_api, store, tool_specs, runner)
   API/           main.py  agent.py  harness/{loop,tools,history,memory,context,compaction,caching,tokens}.py
   SDK/           main.py  agent.py  tools.py
@@ -61,8 +61,8 @@ study-planner-tamar/
 ## הרצה
 
 ```
-pip install -r study-planner-tamar/requirements.txt
-cd study-planner-tamar
+pip install -r study-planner/requirements.txt
+cd study-planner
 python -m unittest discover -s tests
 python API/main.py --scenario scenario.json --out results/api.json
 python SDK/main.py --scenario scenario.json --out results/sdk.json
