@@ -1,10 +1,10 @@
 import json
-import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 from shared.measure import PARTS, loc_report
 
@@ -70,22 +70,12 @@ def loc_table():
     return "\n".join(lines) + f"\n\nAll code lines (no blanks): {files}."
 
 
-def fill(text, name, body):
-    pattern = re.compile(rf"(<!-- {name} -->).*?(<!-- /{name} -->)", re.S)
-    return pattern.sub(lambda m: m.group(1) + "\n" + body + "\n" + m.group(2), text)
-
-
 def main():
     api, sdk = load("api"), load("sdk")
-    path = ROOT / "REPORT.md"
-    text = path.read_text(encoding="utf-8")
-    text = fill(text, "results", results_table(api, sdk))
-    text = fill(text, "checks", checks_table(api, sdk))
-    text = fill(text, "loc", loc_table())
-    text = fill(text, "turns-api", turns_table(api))
-    text = fill(text, "turns-sdk", turns_table(sdk))
-    path.write_text(text, encoding="utf-8")
-    print(f"updated {path}")
+    sections = [("results", results_table(api, sdk)), ("checks", checks_table(api, sdk)),
+                ("turns api", turns_table(api)), ("turns sdk", turns_table(sdk)), ("lines of code", loc_table())]
+    for title, body in sections:
+        print(f"## {title}\n\n{body}\n")
 
 
 if __name__ == "__main__":
